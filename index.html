@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NIPEX LAG • Daily Key</title>
+
+<style>
+:root{
+    --bg:#07090d;
+    --card:#11151c;
+    --line:#242b36;
+    --text:#f5f7fa;
+    --muted:#87909d;
+    --green:#00e887;
+    --green2:#00b96b;
+    --blue:#1597ff;
+    --red:#ff4d5e;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text)}
+body{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:18px;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+}
+.container{width:100%;max-width:420px}
+#mainContainer,#bypassContainer{display:none}
+
+.card,.error-card{
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(145deg,#151a22,#0d1117);
+    border:1px solid var(--line);
+    border-radius:26px;
+    padding:28px 22px 22px;
+    box-shadow:0 24px 70px rgba(0,0,0,.55);
+}
+.card:before{
+    content:"";
+    position:absolute;
+    width:170px;height:170px;
+    right:-80px;top:-80px;
+    border-radius:50%;
+    background:rgba(0,232,135,.08);
+    filter:blur(5px);
+}
+.brand{
+    position:relative;
+    display:flex;
+    align-items:center;
+    gap:13px;
+    margin-bottom:25px;
+}
+.logo{
+    width:54px;height:54px;
+    border-radius:16px;
+    border:1px solid rgba(0,232,135,.55);
+    overflow:hidden;
+    background:#090c10;
+    flex:none;
+}
+.logo img{width:100%;height:100%;object-fit:cover;display:block}
+.brand-title{font-size:22px;font-weight:850;letter-spacing:.3px}
+.badge{
+    display:inline-block;
+    margin-top:4px;
+    padding:4px 8px;
+    border-radius:7px;
+    background:rgba(0,232,135,.10);
+    color:var(--green);
+    border:1px solid rgba(0,232,135,.22);
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:1px;
+}
+.subtitle{color:var(--muted);font-size:13px;margin-bottom:24px}
+
+.label{
+    color:#68727f;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:1.5px;
+    margin:0 0 8px 2px;
+}
+.ip{
+    background:#0a0d12;
+    border:1px solid var(--line);
+    border-radius:13px;
+    padding:13px 14px;
+    color:var(--green);
+    font-family:"Courier New",monospace;
+    font-size:15px;
+    font-weight:700;
+    margin-bottom:19px;
+}
+.key-box{
+    background:#080b10;
+    border:1px solid rgba(0,232,135,.35);
+    border-radius:17px;
+    padding:20px 12px;
+    text-align:center;
+    box-shadow:inset 0 0 25px rgba(0,232,135,.035);
+}
+#finalKey{
+    color:var(--green);
+    font-family:"Courier New",monospace;
+    font-size:21px;
+    font-weight:800;
+    letter-spacing:1.5px;
+    word-break:break-all;
+}
+.btn{
+    width:100%;
+    border:0;
+    border-radius:13px;
+    padding:15px;
+    margin-top:12px;
+    font-size:14px;
+    font-weight:850;
+    cursor:pointer;
+    transition:.18s ease;
+}
+.btn:active{transform:scale(.98)}
+.copy{background:var(--green);color:#001b10}
+.copy:hover{background:#25f29c}
+.telegram{background:var(--blue);color:#fff}
+.telegram:hover{background:#39a8ff}
+.status{
+    text-align:center;
+    margin-top:18px;
+    color:#68727f;
+    font-size:11px;
+    letter-spacing:1px;
+}
+#error{
+    display:none;
+    text-align:center;
+    color:var(--red);
+    font-size:12px;
+    line-height:1.5;
+    margin-top:14px;
+}
+.footer{
+    text-align:center;
+    color:#39414d;
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:2px;
+    margin-top:15px;
+}
+.error-card{
+    text-align:center;
+    padding:38px 25px;
+    background:linear-gradient(145deg,#1a1013,#110b0d);
+    border-color:#402028;
+}
+.error-icon{font-size:46px;margin-bottom:15px}
+.error-title{color:var(--red);font-size:23px;font-weight:850}
+.error-text{color:#8e7f83;font-size:13px;line-height:1.6;margin:12px 0 22px}
+.btn-red{background:var(--red);color:#fff}
+@media(max-width:350px){
+    .card{padding:23px 17px}
+    #finalKey{font-size:17px}
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<div id="mainContainer">
+<div class="card">
+
+    <div class="brand">
+        <div class="logo">
+            <img src="./assets/logo.png" alt="NIPEX">
+        </div>
+        <div>
+            <div class="brand-title">NIPEX LAG</div>
+            <div class="badge">DAILY LICENSE</div>
+        </div>
+    </div>
+
+    <div class="subtitle">Secure license key generator • Reset every day at 6:00 AM IST</div>
+
+    <div class="label">YOUR PUBLIC IP</div>
+    <div class="ip" id="ipAddress">CONNECTING...</div>
+
+    <div class="label">YOUR LICENSE KEY</div>
+    <div class="key-box">
+        <span id="finalKey">SECURE FETCHING...</span>
+    </div>
+
+    <button class="btn copy" id="copyBtn" onclick="copyKey()">COPY LICENSE KEY</button>
+    <button class="btn telegram" onclick="openTelegram()">JOIN TELEGRAM</button>
+
+    <div class="status" id="status">SYSTEM: CONNECTING</div>
+    <div id="error">Unable to connect to IP service.<br>Please check your internet connection.</div>
+
+</div>
+</div>
+
+<div id="bypassContainer">
+<div class="error-card">
+    <div class="error-icon">🚫</div>
+    <div class="error-title">Bypass Detected</div>
+    <div class="error-text">
+        Direct access is not allowed.<br>
+        Please open this generator through the official steps.
+    </div>
+    <button class="btn btn-red" onclick="location.href='steps.html'">RETURN TO STEPS</button>
+</div>
+</div>
+
+<div class="footer">NIPEX LAG SECURITY SYSTEM</div>
+</div>
+
+<script>
+const IP_API="https://api.ipify.org?format=json";
+const TELEGRAM_LINK="https://t.me/nipex_lag";
+const KEY_YEAR=2026;
+
+/* Access gate */
+function checkSecurity(){
+    const params=new URLSearchParams(window.location.search);
+    const source=params.get("source");
+    const referrer=document.referrer || "";
+
+    const allowed =
+        source === "official" ||
+        referrer.includes("vplink.io") ||
+        referrer.includes("lootdest.org") ||
+        referrer.includes("steps.html");
+
+    if(!allowed){
+        document.getElementById("bypassContainer").style.display="block";
+        return;
+    }
+
+    if(source==="official"){
+        const clean=window.location.protocol+"//"+
+            window.location.host+window.location.pathname;
+        window.history.replaceState({},document.title,clean);
+    }
+
+    document.getElementById("mainContainer").style.display="block";
+    generateLockedKey();
+    scheduleDailyRefresh();
+}
+
+/* Public IP */
+async function getPublicIP(){
+    const response=await fetch(IP_API,{cache:"no-store"});
+    if(!response.ok) throw new Error("IP request failed");
+    const data=await response.json();
+    if(!data.ip) throw new Error("IP not found");
+    return data.ip.trim();
+}
+
+/* India time */
+function getIndiaTime(){
+    const parts=new Intl.DateTimeFormat("en-US",{
+        timeZone:"Asia/Kolkata",
+        year:"numeric",month:"2-digit",day:"2-digit",
+        hour:"2-digit",minute:"2-digit",second:"2-digit",
+        hour12:false
+    }).formatToParts(new Date());
+
+    const v={};
+    parts.forEach(p=>{
+        if(p.type!=="literal") v[p.type]=Number(p.value);
+    });
+
+    return {
+        year:v.year,month:v.month,day:v.day,
+        hour:v.hour,minute:v.minute,second:v.second
+    };
+}
+
+/* Daily cycle — reset 6 AM IST */
+function getDailyCycle(){
+    const india=getIndiaTime();
+    let {year,month,day}=india;
+
+    if(india.hour<6){
+        const previous=new Date(Date.UTC(year,month-1,day));
+        previous.setUTCDate(previous.getUTCDate()-1);
+        year=previous.getUTCFullYear();
+        month=previous.getUTCMonth()+1;
+        day=previous.getUTCDate();
+    }
+
+    return Math.floor(Date.UTC(year,month-1,day)/86400000);
+}
+
+/* Exact next 6 AM IST */
+function getMillisecondsUntilNextReset(){
+    const now=new Date();
+    const india=getIndiaTime();
+
+    let target=Date.UTC(
+        india.year,india.month-1,india.day,0,30,0
+    );
+
+    if(india.hour>=6) target+=86400000;
+
+    let delay=target-now.getTime();
+    return delay<1000?1000:delay;
+}
+
+/* Same key algorithm — NIPEX-XXXX-XXXX */
+function generateKeyFromIP(ip){
+    const day=getDailyCycle();
+
+    let cleanIP=ip.replace(/\./g,"");
+    if(cleanIP.length>6) cleanIP=cleanIP.substring(0,6);
+
+    const ipSeed=parseInt(cleanIP,10);
+    let seed=ipSeed+day+KEY_YEAR;
+
+    const chars="ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+    let finalKey="VIPLAG-";
+
+    for(let i=0;i<2;i++){
+        if(i>0) finalKey+="-";
+
+        for(let j=0;j<4;j++){
+            const x=Math.sin(seed++)*10000;
+            const random=Math.abs(x-Math.floor(x));
+            const index=Math.floor(random*chars.length);
+            finalKey+=chars.charAt(index);
+        }
+    }
+
+    return finalKey;
+}
+
+async function generateLockedKey(){
+    const keyEl=document.getElementById("finalKey");
+    const ipEl=document.getElementById("ipAddress");
+    const statusEl=document.getElementById("status");
+    const errorEl=document.getElementById("error");
+
+    keyEl.innerText="SECURE FETCHING...";
+    ipEl.innerText="CONNECTING...";
+    statusEl.innerText="SYSTEM: GETTING IP";
+    errorEl.style.display="none";
+
+    try{
+        const ip=await getPublicIP();
+        ipEl.innerText=ip;
+        keyEl.innerText=generateKeyFromIP(ip);
+        statusEl.innerText="SYSTEM: NIPEX LAG • KEY READY";
+    }catch(e){
+        console.error(e);
+        ipEl.innerText="UNAVAILABLE";
+        keyEl.innerText="CONNECT TO INTERNET";
+        statusEl.innerText="SYSTEM: OFFLINE";
+        errorEl.style.display="block";
+    }
+}
+
+function scheduleDailyRefresh(){
+    setTimeout(async()=>{
+        await generateLockedKey();
+        scheduleDailyRefresh();
+    },getMillisecondsUntilNextReset());
+}
+
+async function copyKey(){
+    const key=document.getElementById("finalKey").innerText;
+    if(key.includes("SECURE")||key.includes("CONNECT")) return;
+
+    try{
+        await navigator.clipboard.writeText(key);
+        const btn=document.getElementById("copyBtn");
+        btn.innerText="COPIED SUCCESSFULLY ✓";
+        setTimeout(()=>btn.innerText="COPY LICENSE KEY",1800);
+    }catch(e){
+        alert("Copy failed. Please copy the key manually.");
+    }
+}
+
+function openTelegram(){
+    window.location.href=TELEGRAM_LINK;
+}
+
+window.addEventListener("load",checkSecurity);
+</script>
+</body>
+</html>
